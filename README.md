@@ -52,6 +52,6 @@ Here, 5HR3nograph-cryptography encrypts data into:
 Steganography, here; uses the famous LSB method. This technique works by replacing some of the information in a given pixel with information from the data in the media file. LSB embedding is performed on the least significant bit(s). This reduces the variation colors that the embedding creates.
     
 ## Contact:
-Mail: <a href="mailto:its5hr3d@gmail.com">its5hr3d@protonmail.com</a><br>Or: <a href"https://linktr.ee/5HR3D">https://linktr.ee/5HR3D</a>
+Mail: <a href="mailto:its5hr3d@gmail.com">its5hr3d@protonmail.com</a><br>Or: <a href"https://linktr.ee/5HR3D">Linktr.ee/5HR3D </a>
 
 
