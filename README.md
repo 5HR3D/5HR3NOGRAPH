@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/5HR3D/5HR3NOGRAPH"><img src="https://github.com/5HR3D/5HR3NOGRAPH/blob/main/Images/5HR3NOGRAPH-logo.png" alt="5HR3NOGRAPH"></a>
+  <a href="https://github.com/5HR3D/5HR3NOGRAPH"><img src="https://i.ibb.co/7Jd6Yzy/5-HR3-NOGRAPH-logo.png" alt="5HR3NOGRAPH"></a>
   <br>
   5HR3NOGRAPH
   <br>
