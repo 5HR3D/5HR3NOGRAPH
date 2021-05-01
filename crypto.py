@@ -1,12 +1,7 @@
-import os
-import sys
-import time
-import hashlib
+import os, sys, time
 import base64
-import getopt
 from math import exp, expm1
 import random
-import pyffx
 import string
 import numpy as np
 
@@ -52,101 +47,23 @@ def shrecode_d():
 	print("\n Decrypted Text:")
 	print(newMessage + "\n")
 	
-#hashes encryption
-def md5_e():
-	mystring = input(' Text to encrypt: ')
-	hash_md5 = hashlib.md5(mystring.encode())
-	print("\n Encrypted Text:\n")
-	print(' ' + hash_md5.hexdigest())
-	
-def sha1_e():
-	mystring = input(' Text to encrypt: ')
-	hash_sha1 = hashlib.sha1(mystring.encode())
-	print("\n Encrypted Text:\n")
-	print(' ' + hash_sha1.hexdigest())
-	
-def sha256_e():
-	mystring = input(' Text to encrypt: ')
-	hash_sha256 = hashlib.sha256(mystring.encode())
-	print("\n Encrypted Text:\n")
-	print(' ' + hash_sha256.hexdigest())
-	
-
-def sha224_e():
-	mystring = input(' Text to encrypt: ')
-	hash_sha224 = hashlib.sha224(mystring.encode())
-	print("\n Encrypted Text:\n")
-	print(' ' + hash_sha224.hexdigest())
-
-
-def sha512_e():
-	mystring = input(' Text to encrypt: ')
-	hash_sha512 = hashlib.sha512(mystring.encode())
-	print("\n Encrypted Text:\n")
-	print(' ' + hash_sha512.hexdigest())
-	
 #----------------------base64----------------------------------------
 def base64_e():
 	try:
-		decoded_string = input('String To Encode: ')
-		encoded_string = base64.b64encode(decoded_string.encode('ascii'))
-		print (encoded_string.decode('ascii'))
-		print()
+		decoded_string = input(' String To Encode: ')
+		encoded_string = base64.b64encode(decoded_string.encode('utf-8'))
+		print(" Encoded String: " + str(encoded_string))
 	except:
 		print(' Invalid Input')
 
 def base64_d():
 	try:
-		encoded_string = input('Encoded String : ')
-		decoded_string = base64.b64decode(encoded_string.encode('ascii'))
-		print (decoded_string.decode('ascii'))
-		print()
+		encoded_string = input(' String To Decode: ')
+		decoded_string = base64.b64decode(encoded_string.encode('utf-8'))
+		print (" Decoded String: " + str(decoded_string))
 	except:
 		print(' Invalid Input')
 
-
-#-------------------Format-Preserving-Encryption----------------------------
-
-def fpenum_e():
-	try:
-		nume = input(" Enter text to encrypt: ")
-		numelen = len(nume)
-		e = pyffx.Integer(b'(5hr3d)', length=int(numelen))
-		f = e.encrypt(nume)
-		print(f)
-	except:
-		print(" Invalid Input.")
-
-def fpenum_d():
-	try:
-		numd = input(" Enter text to decrypt: ")
-		numdlen = len(numd)
-		e = pyffx.Integer(b'(5hr3d)', length=int(numdlen))
-		f = e.decrypt(numd)
-		print(f)
-	except:
-		print(" Invalid Input.")
-
-
-def fpealp_e():
-	try:	
-		alpe = input(" Enter text to encrypt: ")
-		alpelen = len(alpe)
-		e = pyffx.String(b'(5hr3d)', alphabet='abcdefghijklmnopqrstuvwxyz', length=int(alpelen))
-		f = e.encrypt(alpe)
-		print(f)
-	except:
-		print(" Invalid Input.")
-
-def fpealp_d():
-	try:
-		alpd = input(" Enter text to decrypt: ")
-		alpdlen = len(alpd)
-		e = pyffx.String(b'(5hr3d)', alphabet='abcdefghijklmnopqrstuvwxyz', length=int(alpdlen))
-		f = e.decrypt(alpd)
-		print(f)
-	except:
-		print(" Invalid Input.")
 
 #--------------------------------------------------------------------
 def hill_e():
@@ -458,35 +375,20 @@ def hill_d():
 #--------------------------playfair----------------------------------
 def playfair_e():
 	def key_generation(key):
-		# initializing all and generating key_matrix
 		main=string.ascii_lowercase.replace('j','.')
-		# convert all alphabets to lower
 		key=key.lower()
     
 		key_matrix=['' for i in range(5)]
-		# if we have spaces in key, those are ignored automatically
 		i=0;j=0
 		for c in key:
 			if c in main:
-				# putting into matrix
 				key_matrix[i]+=c
-
-				# to make sure repeated characters in key
-				# doesnt include in the key_matrix, we replace the
-				# alphabet into . in the main, whenever comes in iteration
 				main=main.replace(c,'.')
-				# counting column change
 				j+=1
-				# if column count exceeds 5
 				if(j>4):
-					# row count is increased
 					i+=1
-					# column count is set again to zero
 					j=0
 
-		# to place other alphabets in the key_matrix
-		# the i and j values returned from the previous loop
-		# are again used in this loop, continuing the values in them
 		for c in main:
 			if c!='.':
 				key_matrix[i]+=c
@@ -499,59 +401,38 @@ def playfair_e():
 		return(key_matrix)
 
 
-	# Now plaintext is to be converted into cipher text
-
 	def conversion(plain_text):
-		# seggrigating the maeesage into pairs
 		plain_text_pairs=[]
-		# replacing repeated characters in pair with other letter, x
 		cipher_text_pairs=[]
 
-		# remove spaces
 		plain_text=plain_text.replace(" ","")
-		# convert to lower case
 		plain_text=plain_text.lower()
 
-		# RULE1: if both letters in the pair are same or one letter is left at last,
-		# replace second letter with x or add x, else continue with normal pairing
-	
 		i=0
-		# let plain_text be abhi
+		
 		while i<len(plain_text):
-			# i=0,1,2,3
 			a=plain_text[i]
 			b=''
 
 			if((i+1)==len(plain_text)):
-				# if the chosen letter is last and doesnt have pair
-				# then the pai will be x
 				b='x'
 			else:
-				# else the next letter will be pair with the previous letter
 				b=plain_text[i+1]
 
 			if(a!=b):
 				plain_text_pairs.append(a+b)
-				# if not equal then leave the next letter,
-				# as it became pair with previous alphabet
 				i+=2
 			else:
 				plain_text_pairs.append(a+'x')
-				# else dont leave the next letter and put x
-				# in place of repeated letter and conitnue with the next letter
-				# which is repeated (according to algo)
 				i+=1
             
 		print("plain text pairs: ",plain_text_pairs)
 
 
 		for pair in plain_text_pairs:
-			# RULE2: if the letters are in the same row, replace them with
-			# letters to their immediate right respectively
 			flag=False
 			for row in key_matrix:
 				if(pair[0] in row and pair[1] in row):
-				# find will return index of a letter in string
 					j0=row.find(pair[0])
 					j1=row.find(pair[1])
 					cipher_text_pair=row[(j0+1)%5]+row[(j1+1)%5]
@@ -559,14 +440,10 @@ def playfair_e():
 					flag=True
 			if flag:
 				continue
-
-			# RULE3: if the letters are in the same column, replace them with
-			# letters to their immediate below respectively
                 
 			for j in range(5):
 				col="".join([key_matrix[i][j] for i in range(5)])
 				if(pair[0] in col and pair[1] in col):
-					# find will return index of a letter in string
 					i0=col.find(pair[0])
 					i1=col.find(pair[1])
 					cipher_text_pair=col[(i0+1)%5]+col[(i1+1)%5]
@@ -574,11 +451,6 @@ def playfair_e():
 					flag=True
 			if flag:
 				continue
-			#RULE:4 if letters are not on the same row or column,
-			# replace with the letters on the same row respectively but
-			# at the other pair of corners of rectangle,
-			# which is defined by the original pair
-
 			i0=0
 			i1=0
 			j0=0
@@ -596,20 +468,17 @@ def playfair_e():
 			cipher_text_pairs.append(cipher_text_pair)
         
 		print("cipher text pairs: ",cipher_text_pairs)
-		# final statements
 		print('plain text: ',plain_text)
 		print('cipher text: ',"".join(cipher_text_pairs))
 
 
 	key=input("Enter the key: ")
 
-	# calling first function
 	key_matrix=key_generation(key)
 	print("Key Matrix for encryption:")
 	print(key_matrix)
 	plain_text=input("Enter the message: ")
 
-	# calling second function
 	conversion(plain_text)
 
 #---------------------------------playfair_d--------------------------------
@@ -617,35 +486,21 @@ def playfair_e():
 def playfair_d():
 
 	def key_generation(key):
-		# initializing all and generating key_matrix
 		main=string.ascii_lowercase.replace('j','.')
-		# convert all alphabets to lower
 		key=key.lower()
     
 		key_matrix=['' for i in range(5)]
-		# if we have spaces in key, those are ignored automatically
 		i=0;j=0
 		for c in key:
 			if c in main:
-				# putting into matrix
 				key_matrix[i]+=c
 
-				# to make sure repeated characters in key
-				# doesnt include in the key_matrix, we replace the
-				# alphabet into . in the main, whenever comes in iteration
 				main=main.replace(c,'.')
-				# counting column change
 				j+=1
-				# if column count exceeds 5
 				if(j>4):
-					# row count is increased
 					i+=1
-					# column count is set again to zero
 					j=0
 
-		# to place other alphabets in the key_matrix
-		# the i and j values returned from the previous loop
-		# are again used in this loop, continuing the values in them
 		for c in main:
 			if c!='.':
 				key_matrix[i]+=c
@@ -658,73 +513,44 @@ def playfair_d():
 		return(key_matrix)
 
 
-	# Now ciphertext is to be converted into plaintext
-	
 	def conversion(cipher_text):
-		# seggrigating the maeesage into pairs
 		plain_text_pairs=[]
-		# replacing repeated characters in pair with other letter, x
 		cipher_text_pairs=[]
-
-		# convert to lower case
 		cipiher_text=cipher_text.lower()
-
-		# RULE1: if both letters in the pair are same or one letter is left at last,
-		# replace second letter with x or add x, else continue with normal pairing
 
 		i=0
 		while i<len(cipher_text):
-			# i=0,1,2,3
 			a=cipher_text[i]
 			b=cipher_text[i+1]
 
 			cipher_text_pairs.append(a+b)
-			# else dont leave the next letter and put x
-			# in place of repeated letter and conitnue with the next letter
-			# which is repeated (according to algo)
 			i+=2
             
 		print("cipher text pairs: ",cipher_text_pairs)
 
 
 		for pair in cipher_text_pairs:
-			# RULE2: if the letters are in the same row, replace them with
-			# letters to their immediate right respectively
 			flag=False
 			for row in key_matrix:
 				if(pair[0] in row and pair[1] in row):
-					# find will return index of a letter in string
 					j0=row.find(pair[0])
 					j1=row.find(pair[1])
-					# same as reverse
-					# instead of -1 we are doing +4 as it is modulo 5
 					plain_text_pair=row[(j0+4)%5]+row[(j1+4)%5]
 					plain_text_pairs.append(plain_text_pair)
 					flag=True
 			if flag:
 				continue
 
-			# RULE3: if the letters are in the same column, replace them with
-			# letters to their immediate below respectively
-                
 			for j in range(5):
 				col="".join([key_matrix[i][j] for i in range(5)])
 				if(pair[0] in col and pair[1] in col):
-					# find will return index of a letter in string
 					i0=col.find(pair[0])
 					i1=col.find(pair[1])
-					# same as reverse
-					# instead of -1 we are doing +4 as it is modulo 5
 					plain_text_pair=col[(i0+4)%5]+col[(i1+4)%5]
 					plain_text_pairs.append(plain_text_pair)
 					flag=True
 			if flag:
 				continue
-			#RULE:4 if letters are not on the same row or column,
-			# replace with the letters on the same row respectively but
-			# at the other pair of corners of rectangle,
-			# which is defined by the original pair
-
 			i0=0
 			i1=0
 			j0=0
@@ -742,7 +568,6 @@ def playfair_d():
 			plain_text_pairs.append(plain_text_pair)
         
 		print("plain text pairs: ",plain_text_pairs)
-		# final statements
     
 		print('cipher text: ',"".join(cipher_text_pairs))
 		print('plain text (message): ',"".join(plain_text_pairs))
@@ -750,13 +575,11 @@ def playfair_d():
 
 	key=input("Enter the key: ")
 
-	# calling first function
 	key_matrix=key_generation(key)
 	print("Key Matrix for encryption:")
 	print(key_matrix)
 	cipher_text=input("Enter the encrypted message: ")
 
-	# calling second function
 	conversion(cipher_text)
 
 
@@ -766,13 +589,11 @@ def playfair_d():
 
 def railfence_e():
 
-	# this function is to get the desired sequence
+
 	def sequence(n):
 		arr=[]
 		i=0
-		# creating the sequence required for
-		# implementing railfence cipher
-		# the sequence is stored in array
+
 		while(i<n-1):
 			arr.append(i)
 			i+=1
@@ -781,27 +602,18 @@ def railfence_e():
 			i-=1
 		return(arr)
 
-	# this is to implement the logic
 	def railfence(s,n):
-		# converting into lower cases
 		s=s.lower()
 
-		# If you want to remove spaces,
-		# you can uncomment this
-		# s=s.replace(" ","")
-
-		# returning the sequence here
 		L=sequence(n)
 		print("The raw sequence of indices: ",L)
 
-		# storing L in temp for reducing additions in further steps
 		temp=L
     
 		# adjustments
 		while(len(s)>len(L)):
 			L=L+temp
 
-		# removing the extra last indices
 		for i in range(len(L)-len(s)):
 			L.pop()
 		print("The row indices of the characters in the given string: ",L)
@@ -832,9 +644,7 @@ def railfence_d():
 	def sequence(n):
 		arr=[]
 		i=0
-		# creating the sequence required for
-		# implementing railfence cipher
-		# the sequence is stored in array
+
 		while(i<n-1):
 			arr.append(i)
 			i+=1
@@ -848,17 +658,9 @@ def railfence_d():
 		# converting into lower cases
 		cipher_text=cipher_text.lower()
 
-		# If you want to remove spaces,
-		# you can uncomment this
-		# s=s.replace(" ","")
-
-		# returning the sequence here
 		L=sequence(n)
 		print("The raw sequence of indices: ",L)
 
-		# storing L in temp for reducing additions in further steps
-		# if not stored and used as below, the while loop
-		# will create L of excess length
 		temp=L
     
 		# adjustments
@@ -881,9 +683,7 @@ def railfence_d():
 		# converting into plain text
 		plain_text=""
 		for i in L:
-			# k is index of particular character in the cipher text
-			# k's value changes in such a way that the order of change
-			# in k's value is same as plaintext order
+
 			k=temp1.index(i)
 			temp1[k]=n
 			plain_text+=cipher_text[k]
@@ -1102,10 +902,8 @@ print("\n Choose:\n")
 
 print(" [01] 5HR3code")
 print(" [02] Base64")
-print(" [03] FPE")
-print(" [04] Hashes")
-print(" [05] Ciphers")
-print(" [06] Info for nerds.")
+print(" [03] Ciphers")
+print(" [04] Info for nerds.")
 print(" [55] Exit")
 
 choice = input("\n  [#]:> ")
@@ -1154,75 +952,7 @@ elif choice == "2" or choice == "02":
 	else:
 		print("\n Error Occured, Please Re-try.\n")	
 	
-
 elif choice == "3" or choice == "03":
-	os.system('clear')
-	print(logo)
-	print("\n  FORMAT PRESERVING ENCRYPTION\n")
-	print(" [01] Numeric")
-	print(" [02] Alphabetic")
-	fpeinput = input("\n  [#]:> ")
-	
-	if fpeinput == "1" or fpeinput == "01":
-		print("\n [01] Encrypt")
-		print(" [02] Decrypt")
-		fpenuminput = input("\n  [#]:> ")
-		
-		if fpenuminput == "1" or fpenuminput == "01":
-			print("")
-			fpenum_e()
-			
-		elif fpenuminput == "2" or fpenuminput == "02":
-			print("")
-			fpenum_d()
-			
-		else:
-		
-			print(" Error Occured, Please Re-try.")
-			
-	elif fpeinput == "2" or fpeinput == "02":
-		print("\n [01] Encrypt")
-		print(" [02] Decrypt")
-		fpealpinput = input("\n  [#]:> ")
-		
-		if fpealpinput == "1" or fpealpinput == "01":
-			print("")
-			fpealp_e()	
-		
-		elif fpealpinput == "2" or fpealpinput == "02":
-			print("")
-			fpealp_d()	
-		else:
-			print(" Error Occured, Please Re-try.")
-		
-	
-elif choice == "4" or choice == "04":
-	os.system('clear')
-	print(logo)
-	print("\n HASHES:")
-	print("\n [01] MD5")
-	print(" [02] SHA1")
-	print(" [03] SHA256")
-	print(" [04] SHA224")
-	print(" [05] SHA512")
-	hashinput = input("\n  [#]:> ")
-		
-	if hashinput == "1" or hashinput == "01":
-		md5_e()
-	elif hashinput == "2" or hashinput == "02":
-		sha1_e()
-	elif hashinput == "3" or hashinput == "03":
-		sha256_e()
-	elif hashinput == "4" or hashinput == "04":
-		sha224_e()
-	elif hashinput == "5" or hashinput == "05":
-		sha512_e()
-	else:
-		print("Error Occured. Please Retry.")
-	
-	
-	
-elif choice == "5" or choice == "05":
 	os.system('clear')
 	print(logo)
 	print("\n CIPHERS:")
@@ -1292,7 +1022,7 @@ elif choice == "5" or choice == "05":
 	elif cypherinput == "6" or cypherinput == "06":
 		print("\n [01] Encrypt")
 		print(" [02] Decrypt")
-		pfcyi = input("\n  [#]:> ")
+		ccyi = input("\n  [#]:> ")
 		if ccyi == "1" or ccyi == "01":
 			caesar_e()
 		elif ccyi == "2" or ccyi == "02":
@@ -1304,49 +1034,11 @@ elif choice == "5" or choice == "05":
 		print(" Error Occured, Please Try again.")
 		
 		
-elif choice == "6" or choice == "06":
+elif choice == "4" or choice == "04":
 	os.system("clear")
 	print(logo)
 	print(" INFO FOR NERDS:")
 	print("""
->HASHES
-   MD5
-   The MD5 message-digest algorithm 
-   is a hash function of 128-bit hash value.
-   
-   Digest size: 128 bit
-   Block size:512 bit
-
-   SHA1
-   SHA-1 produces a 160-bit hash value known as a message digest 
-   aka hexadecimal number, 40 digits long.
-   
-   Digest size: 160 bit
-   Block size: 512 bit
-
-   SHA2
-   SHA-2 is built using the Merkle–Damgård 
-   construction, from a one-way compression 
-   function itself built 
-   using the Davies–Meyer structure
-   from a specialized block cipher.
-
-   common SHA-2 digests: 
-   ~SHA224 
-   ~SHA512
-   ~SHA256
-
->FORMAT PRESERVING ENCRYPTION
-   Format-preserving encryption (FPE), refers to encrypting 
-   in such a way that the output (the ciphertext) is in the 
-   same format as the input 
-   (the plaintext). The meaning of "format" varies.
-
-   Example:
-   ~encrypting a 6-digit password and the output cipher be 6-digit
-   ~encrypting an English word and the output cipher be an english word
-   ~encrypting a n-bit number and the ciphertext be n-bit.
-
 >BASE64
    Base64 is a group of binary-to-text encoding schemes 
    that represent binary data (more specifically a 
@@ -1415,8 +1107,7 @@ elif choice == "6" or choice == "06":
 >5HR3CODE
    SHRECODE is a modified type of the Shift Cipher. Shrecode can 
    encrypt alphanumeric (+symbols) unlike other ciphers ¯\_(ツ)_/¯
-
-
+   
 """)
 	
 elif choice == "55":
