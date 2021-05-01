@@ -8,6 +8,9 @@
 
 <p align="center">An advanced, powerful and handy steganography and cryptography tool for the terminal.</p>
 
+<h1>Intro</h1> 
+
+5HR3NOGRAPH (Shre-no-graf) is a powerful terminal tool for steganography and cryptography. 5HR3NOGRAPH-steganography helps in encoding information in image and audio files. Steganography is the art of hiding secret data within an ordinary, non-secret, file or message in order to avoid detection. 5HR3NOGRAPH-cryptography allow's you to encrypt text in a very easy way. It is nearly impossible to brute-force crack the encrypted text. This tool has all the feature of text steganography, audio steganography, image steganography, video stegaography, text cryptography. Steganography and cryptography have complimentary purposes and can be used together so 5HR3NOGRAPH has it together. xp
 
 ## Installation
 
@@ -39,10 +42,16 @@ Here, 5HR3nograph-cryptography encrypts data into:
   </ul>
   <li>Base64</li>
   <li>Format Preserving Encryption</li>
+  <li>Hashes (Coming soon)</li>
   <li>5HR3code</li>
     </ul>
     <br>..for more info check out option "04" by executing file crypto.py.
     <h1 align="center">---</h1>
+    
+# Steganography (coming soon)
+Steganography, here; uses the famous LSB method. This technique works by replacing some of the information in a given pixel with information from the data in the media file. LSB embedding is performed on the least significant bit(s). This reduces the variation colors that the embedding creates.<br><br>
+It hides almost anything in anything. Yup.. It is what it is ;)
+
     
 Contact:<br>
 Mail: its5hr3d@protonmail.com<br>Or: https://linktr.ee/5HR3D
