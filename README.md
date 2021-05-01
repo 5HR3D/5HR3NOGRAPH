@@ -45,13 +45,13 @@ Here, 5HR3nograph-cryptography encrypts data into:
   <li>Hashes (Coming soon)</li>
   <li>5HR3code</li>
     </ul>
-    <br>..for more info check out option "04" by executing file crypto.py.
-    <h1 align="center">---</h1>
+    ..for more info check out option "04" by executing file crypto.py.
+
     
 # Steganography (coming soon)
 Steganography, here; uses the famous LSB method. This technique works by replacing some of the information in a given pixel with information from the data in the media file. LSB embedding is performed on the least significant bit(s). This reduces the variation colors that the embedding creates.
     
-Contact:<br>
-Mail: its5hr3d@protonmail.com<br>Or: https://linktr.ee/5HR3D
+## Contact:
+Mail: <a href="mailto:its5hr3d@gmail.com">its5hr3d@protonmail.com</a><br>Or: <a href"https://linktr.ee/5HR3D">https://linktr.ee/5HR3D</a>
 
 
