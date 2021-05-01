@@ -44,8 +44,8 @@ Here, 5HR3nograph-cryptography encrypts data into:
   <li>Format Preserving Encryption</li>
   <li>Hashes (Coming soon)</li>
   <li>5HR3code</li>
-    </ul>
-    ..for more info check out option "04" by executing file crypto.py.
+  </ul>
+ ..for more info check out option "04" by executing file crypto.py.
 
     
 # Steganography (coming soon)
